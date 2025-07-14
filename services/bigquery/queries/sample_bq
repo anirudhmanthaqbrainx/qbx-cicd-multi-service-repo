@@ -1,0 +1,7 @@
+CREATE TABLE `qbx-data-poc-oreilly.oreilly.oreilly_demo.CountryDim` (
+  Region STRING,
+  Country STRING
+  )
+OPTIONS (
+  description = "This is a sample table"
+);
