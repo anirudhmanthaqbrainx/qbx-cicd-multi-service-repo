@@ -1,0 +1,25 @@
+steps:
+  # Step 1: Run unit tests or lint SQL
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Running SQL linting or tests..."
+        # Add your SQL validation logic here
+
+  # Step 2: Deploy SQL files to BigQuery
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        for file in bigquery/queries/oreillydemo.sql; do
+          echo "Deploying $file to BigQuery..."
+          bq query --project_id=qbx-data-poc-oreilly --use_legacy_sql=false < "$file"
+        done
+
+substitutions:
+  _PROJECT_ID: 'qbx-data-poc-oreilly'
+
+timeout: 600s
